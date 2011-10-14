@@ -1,0 +1,5 @@
+Todo:
+
+1. Implementar o verificador de assinatura como filtro
+2. Criar projeto bill_it-http para guardar o pacote http
+3. Acesso ao reposit—rio de chaves para obter identidade do usu‡rio assim como chave privada (atende  todo 1)
