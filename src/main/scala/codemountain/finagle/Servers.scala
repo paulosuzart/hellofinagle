@@ -91,18 +91,14 @@ object Advanced {
 object SuperAdvanced {
   import Helpers._
 
-  def ~>(request: Request) = {
-    request.params
-  }
   val superAd = ~~ {
-
     case (Get, request) =>
-         (Path(request.path)) match {
-            case Root / "user" / Integer(id) =>
-              val response = request.response
-              response.setContentString("The user id is %d\n\n" format id)
-              Future.value(response)
-          }
+      (Path(request.path)) match {
+        case Root / "user" / Integer(id) =>
+          val response = request.response
+          response.setContentString("The user id is %d\n\n" format id)
+          Future.value(response)
+      }
   }
 
   def main(args: Array[String]) {
