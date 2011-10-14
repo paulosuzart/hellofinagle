@@ -1,6 +1,5 @@
 package codemountain.finagle
 
-
 import org.jboss.netty.handler.codec.http.HttpRequest
 import com.twitter.util.Future
 import org.jboss.netty.handler.codec.http.DefaultHttpResponse
@@ -92,20 +91,25 @@ object Advanced {
 object SuperAdvanced {
   import Helpers._
 
+  def ~>(request: Request) = {
+    request.params
+  }
   val superAd = ~~ {
+
     case (Get, request) =>
-      (Path(request.path)) match {
-        case Root / "user" / Integer(id) =>
-          val response = request.response
-          response.setContentString("The user id is %d\n\n" format id)
-          Future.value(response)
-      }
+         (Path(request.path)) match {
+            case Root / "user" / Integer(id) =>
+              val response = request.response
+              response.setContentString("The user id is %d\n\n" format id)
+              Future.value(response)
+          }
   }
 
-  val serve: Server = ServerBuilder()
-    .codec(new RichHttp[Request](new Http()))
-    .bindTo(new InetSocketAddress(8099))
-    .name("suprAd")
-    .build(ExceptionFilter andThen superAd)
-
+  def main(args: Array[String]) {
+    val serve: Server = ServerBuilder()
+      .codec(new RichHttp[Request](new Http()))
+      .bindTo(new InetSocketAddress(8099))
+      .name("suprAd")
+      .build(ExceptionFilter andThen superAd)
+  }
 }
